@@ -1,0 +1,21 @@
+name: "Check crypto prices"
+on:
+  schedule:
+    - cron: "*/2 * * * *"
+jobs:
+  check_crypto_prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+
+      - name: Installing dependencies
+        run: npm install
+
+      - name: Run script
+        run: npm run start
