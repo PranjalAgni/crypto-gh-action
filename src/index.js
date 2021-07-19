@@ -6,6 +6,8 @@ const encryptedAPIKeyData = {
   content: "e09f5b10c4e95193ee1efd28fdc066a911f26e1345696baf218af24a3fbaecf1",
 };
 
+const cryptoCoins = ["ADA", "CHZ", "DOGE", "DNT"];
+
 const getAPIUrl = () => {
   const BASE_API_URL = "http://api.coinlayer.com/api/live";
   const API_KEY = decryptAPIData(encryptedAPIKeyData);
@@ -13,10 +15,19 @@ const getAPIUrl = () => {
   return `${BASE_API_URL}?access_key=${API_KEY}`;
 };
 
+const usdToInr = (dollar) => {
+  return 74.98 * dollar;
+};
+
 const getStats = async (cryptoExchangeInstance) => {
   const API_URL = getAPIUrl();
   const response = await axios(API_URL);
-  console.log("Live market prices: ", response.data);
+  const cryptoData = response.data.rates;
+  cryptoCoins.forEach((coin) => {
+    if (cryptoData[coin]) {
+      console.log(`Current ${coin} price is ${usdToInr(cryptoData[coin])}`);
+    }
+  });
 };
 
 getStats();
