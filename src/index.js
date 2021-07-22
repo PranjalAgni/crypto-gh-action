@@ -2,10 +2,7 @@ const axios = require("axios");
 const { decryptAPIData } = require("./crypto");
 const { usdToInr } = require("./currency");
 
-const encryptedAPIKey = {
-  iv: "869f0af7fb12fe62b818248b9bd79d34",
-  content: "e09f5b10c4e95193ee1efd28fdc066a911f26e1345696baf218af24a3fbaecf1",
-};
+const encryptedAPIKey = "MjlmYTMyOWVlZDIyZjk1N2NhYjY4YWM3OGYyY2EzNGI=";
 
 const cryptoCoins = ["ADA", "CHZ", "DOGE", "DNT"];
 
@@ -17,8 +14,10 @@ const getAPIUrl = () => {
 
 const getStats = async () => {
   const API_URL = getAPIUrl();
+  console.log(API_URL);
   const response = await axios(API_URL);
   const cryptoData = response.data.rates;
+
   const dollarToInr = await usdToInr();
   console.log(dollarToInr);
   cryptoCoins.forEach((coin) => {
