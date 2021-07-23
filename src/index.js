@@ -19,7 +19,7 @@ const getStats = async () => {
   const cryptoData = response.data.rates;
 
   const dollarToInr = await usdToInr();
-  console.log(dollarToInr);
+  console.log("Current $ to INRdollarToInr ₹ ", dollarToInr);
   cryptoCoins.forEach((coin) => {
     if (cryptoData[coin]) {
       console.log(`Current ${coin} price is ${dollarToInr * cryptoData[coin]}`);
