@@ -15,8 +15,10 @@ const usdToInr = async () => {
   });
 
   const API_URL = `${BASE_API_URL}?${searchParams.toString()}`;
+  console.log(API_URL);
   const response = await axios(API_URL);
   const currencyUnit = response.data["USD_INR"];
+  console.log("Successfully fetched the $ price");
   return currencyUnit;
 };
 

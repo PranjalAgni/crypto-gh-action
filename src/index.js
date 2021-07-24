@@ -13,18 +13,24 @@ const getAPIUrl = () => {
 };
 
 const getStats = async () => {
-  const API_URL = getAPIUrl();
-  console.log(API_URL);
-  const response = await axios(API_URL);
-  const cryptoData = response.data.rates;
-
-  const dollarToInr = await usdToInr();
-  console.log("Current $ to INRdollarToInr ₹ ", dollarToInr);
-  cryptoCoins.forEach((coin) => {
-    if (cryptoData[coin]) {
-      console.log(`Current ${coin} price is ${dollarToInr * cryptoData[coin]}`);
-    }
-  });
+  try {
+    const API_URL = getAPIUrl();
+    console.log(API_URL);
+    const response = await axios(API_URL);
+    const cryptoData = response.data.rates;
+    console.log("Successfully fetched coins data");
+    const dollarToInr = await usdToInr();
+    console.log(dollarToInr);
+    cryptoCoins.forEach((coin) => {
+      if (cryptoData[coin]) {
+        console.log(
+          `Current ${coin} price is ${dollarToInr * cryptoData[coin]}`
+        );
+      }
+    });
+  } catch (error) {
+    console.error(error.stack);
+  }
 };
 
 getStats();
